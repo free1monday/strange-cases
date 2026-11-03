@@ -1,6 +1,6 @@
 # SEO-чеклист — «Не очень странные дела»
 
-> Сайт в проде: https://strange-cases.vercel.app · Репозиторий: https://github.com/free1monday/strange-cases
+> Сайт в проде: https://strange-cases.vercel.app · Репозиторий: https://github.com/free1monday/strange-cases · Автодеплой: Vercel ↔ GitHub, push в `main` → production
 
 ## Контент и метатеги
 
@@ -42,6 +42,7 @@
 - [x] HTTPS: Vercel выдал сертификат автоматически.
 - [x] После деплоя проверены ответы `/`, `/styles.css`, `/robots.txt`, `/sitemap.xml`, `/assets/og-image.png` — все `200`.
 - [x] Страница не закрыта от индекса: `noindex` нет, `robots.txt` разрешает.
+- [x] Автодеплой включён нативно: проект Vercel привязан к `free1monday/strange-cases`, production-ветка `main`, push = новый деплой. Workflow-файлы и токены в CI не требуются.
 - [ ] При подключении своего домена: заменить URL, настроить редирект `www` ↔ без `www`, обновить `lastmod`.
 - [ ] Прогнать [PageSpeed Insights](https://pagespeed.web.dev/) (цель: 90+ по мобильным) и Lighthouse Accessibility.
 
@@ -58,5 +59,5 @@
 - `meta keywords` — устаревший тег, не влияет на ранжирование.
 - Schema `Person` / имя / фото юриста — по правке «убрать имя», чтобы сайт работал как бренд.
 - Блог, раздел «Обо мне», телефон, адрес офиса, формы заявки — по ТЗ «минимум текста, связь только через Telegram».
-- Автодеплой из GitHub — по вашему выбору «не нужно»; GitHub-интеграция к Vercel не подключалась, обновления публикуются вручную (см. README).
+- GitHub Actions и `.github/workflows/*` — не понадобились: нативная Git-интеграция Vercel деплоит сама и не требует scope `workflow` у токена.
 - Тяжёлые библиотеки, шрифтовые файлы в репозитории, JS-фреймворки, cookie-баннеры (аналитика подключается вручную и только по желанию).

@@ -1,6 +1,7 @@
 # Не очень странные дела — сайт-визитка
 
 > 🚀 **Задеплоено:** https://strange-cases.vercel.app
+> 🔁 **Автодеплой:** Vercel ↔ GitHub — каждый push в `main` публикует продакшн
 > **Репозиторий:** https://github.com/free1monday/strange-cases · `main` · 2026-11-03
 
 Одностраничный лендинг юридической практики: чёрный фон, красные акценты, геометрический sans-serif, атмосфера «странных дел».
@@ -49,37 +50,42 @@ python3 -m http.server 8080
 
 Шрифты Montserrat и Orbitron подгружаются с Google Fonts. Без интернета сайт остаётся полностью рабочим благодаря системному fallback (`Segoe UI / Arial`). Orbitron не поддерживает кириллицу, поэтому он используется только для цифр и латинских подписей; весь кириллический текст — Montserrat.
 
-## Деплой на Vercel
+## Деплой и автодеплой
 
-Публикация уже выполнена: проект `strange-cases` создан в Vercel, файлы загружены напрямую (static, framework = `None`, сборка не требуется), production-алиас `strange-cases.vercel.app` активен. GitHub-интеграция к Vercel **не подключена**, поэтому `git push` сам по себе сайт не обновляет.
+Публикация выполнена: проект `strange-cases` создан в Vercel (static, framework = `None`, сборка не требуется), production-алиас `strange-cases.vercel.app` активен.
 
-### Обновление сайта вручную
+**Автодеплой включён нативно.** Проект подключён к репозиторию `free1monday/strange-cases`, production-ветка `main`. Каждый `push` в `main` сам создаёт новый деплой в Vercel и переключает алиас. Не нужны ни workflow-файлы, ни GitHub Actions, ни токен в CI: Vercel читает код напрямую через установленное на аккаунте GitHub-приложение (те же права уже использовались вашими проектами `lyukinfo`, `tiex-alfa`, `dark-forest-terra-incognita`).
+
+### Обновление сайта
 
 ```bash
 git add . && git commit -m "Update site" && git push origin main
-npx vercel@latest deploy --prod --yes --project strange-cases --token=<ВАШ_VERCEL_TOKEN>
 ```
 
-### Если нужен автодеплой при каждом пуше
+Дальше всё сделает Vercel. История деплоев: https://vercel.com/moo26/strange-cases
 
-Два варианта:
-
-1. **Vercel Dashboard** → Project → **Settings → Git** → Connect Git Repository (один раз подтвердить доступ к GitHub). После этого каждый push в `main` будет деплоиться сам.
-2. **GitHub Actions**: добавить workflow, который на push выполняет `npx vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}`, и записать токен в секреты репозитория. Не требует подключения GitHub к Vercel.
-
-### Как это было сделано (для повторения с нуля)
+### Ручной деплой (fallback, если Git-интеграция недоступна)
 
 ```bash
-# 1. пустой публичный репозиторий на GitHub
-# 2. в папке проекта:
+npx vercel@latest deploy --prod --yes --project strange-cases --token=<VERCEL_TOKEN>
+```
+
+Токен для этого сохранён в зашифрованном секрете репозитория `VERCEL_TOKEN` (Settings → Secrets and variables → Actions) — при нативном автодеплое он не используется, но оставлен по вашей просьбе как запасной вариант.
+
+### Первоначальная настройка (для повторения с нуля)
+
+```bash
+# 1. публичный репозиторий на GitHub + папка проекта
 git init
 git add .
 git commit -m "Initial commit"
 git remote add origin https://github.com/free1monday/strange-cases.git
 git push -u origin main
 
-# 3. деплой (Vercel сам отдаёт static-файлы из корня, vercel.json применяется автоматически)
+# 2. первый деплой прямой загрузкой файлов
 npx vercel@latest deploy --prod --yes --project strange-cases --create-if-missing --token=<TOKEN>
+
+# 3. подключить Git (в дашборде: Settings → Git → Connect Git Repository, либо через Vercel API)
 ```
 
 Настройки проекта в Vercel: **Framework Preset** `Other`, **Build Command** пусто, **Output Directory** по умолчанию, переменные окружения не нужны.
@@ -107,7 +113,7 @@ npx vercel@latest deploy --prod --yes --project strange-cases --create-if-missin
 
 ## Безопасность
 
-Токены GitHub и Vercel использовались **один раз** для создания репозитория, пуша и деплоя. В файлы проекта и в коммит они не попали (перед коммитом проверено `grep`), `/tmp`-файл с ними лежит вне репозитория. **Обязательно отзовите/перевыпустите оба токена** в настройках GitHub и Vercel: токен, побывавший в переписке, считается скомпрометированным. Для будущих деплоев выпустите новый токен и храните его в секретах CI или в менеджере паролей — никогда не коммитьте `.env`, ключи и токены.
+Токены сохранены и используются по вашему указанию. Vercel-токен лежит в **зашифрованном секрете** `VERCEL_TOKEN` репозитория как запасной вариант для ручного деплоя; рабочий файл с обоими токенами находится в `/tmp` вне репозитория. В файлах проекта, в коммитах и в `git config` токенов нет — перед каждым коммитом это проверяется `grep`. При нативном автодеплое токены в CI вообще не участвуют. Если когда-либо решите перевыпустить токены, достаточно обновить этот секрет. Никогда не коммитьте `.env`, ключи и токены.
 
 ## Чеклист
 
