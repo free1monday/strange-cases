@@ -218,7 +218,7 @@ body::after {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--red-line);
   border: 1px solid var(--red-line);
@@ -265,6 +265,43 @@ body::after {
 .service p {
   margin: 0;
   font-size: .82rem;
+  line-height: 1.6;
+  color: var(--grey);
+}
+
+/* -------------------------- FAQ ------------------------------ */
+.faq {
+  padding: clamp(28px, 5vh, 56px) 0;
+  border-top: 1px solid var(--red-line);
+}
+
+.faq__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq__list li {
+  border: 1px solid var(--red-line);
+  padding: 16px 20px;
+  background: rgba(8, 8, 10, .85);
+}
+
+.faq__list h3 {
+  margin: 0 0 6px;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.faq__list p {
+  margin: 0;
+  font-size: .85rem;
   line-height: 1.6;
   color: var(--grey);
 }
@@ -368,7 +405,7 @@ body::after {
 
 /* -------------------------- ADAPTIVE ------------------------- */
 @media (max-width: 760px) {
-  .services__grid { grid-template-columns: 1fr; }
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
   .hero { padding-top: 52px; }
   .hero__line1 { letter-spacing: .3em; text-indent: .3em; }
   .hero__line2 { letter-spacing: .03em; text-indent: .03em; }
@@ -378,7 +415,8 @@ body::after {
   .service { gap: 10px; }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+  .services__grid { grid-template-columns: 1fr; }
   .hero__line1 { font-size: .85rem; }
   .hero__line2 { font-size: 1.4rem; }
   .hero__eyebrow { font-size: .5rem; }
