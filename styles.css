@@ -173,6 +173,24 @@ body::after {
   color: #e7e7ea;
 }
 
+.hero__telegram {
+  margin: clamp(16px, 3vh, 24px) 0 0;
+  font-size: .85rem;
+  color: var(--grey);
+}
+
+.hero__telegram a {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red-line);
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.hero__telegram a:hover {
+  color: var(--red-light);
+  border-bottom-color: var(--red);
+}
+
 .hero__line {
   position: relative;
   width: min(280px, 55%);
