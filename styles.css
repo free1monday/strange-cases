@@ -287,6 +287,25 @@ body::after {
   color: var(--grey);
 }
 
+.service__link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--red);
+  text-decoration: none;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--red-line);
+  transition: color .2s ease, border-color .2s ease;
+}
+.service__link:hover {
+  color: var(--red-light);
+  border-bottom-color: var(--red);
+}
+
 /* ------------------------- SERVICE PAGES --------------------- */
 .service-hero .hero__tagline { max-width: 42ch; }
 .service-hero .btn { margin-top: clamp(20px, 4vh, 30px); }
