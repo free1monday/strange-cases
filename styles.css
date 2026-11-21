@@ -287,6 +287,83 @@ body::after {
   color: var(--grey);
 }
 
+/* ------------------------- SERVICE PAGES --------------------- */
+.service-hero .hero__tagline { max-width: 42ch; }
+.service-hero .btn { margin-top: clamp(20px, 4vh, 30px); }
+
+.service-detail { padding: clamp(28px, 5vh, 56px) 0; }
+
+.service-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+  border: 1px solid var(--red-line);
+}
+
+.service-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(8, 8, 10, .85);
+  border-bottom: 1px solid var(--red-line);
+}
+.service-item:last-child { border-bottom: none; }
+
+.item-icon {
+  flex: none;
+  width: 32px; height: 32px;
+  stroke: var(--red);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .8;
+}
+
+.service-item h3 {
+  margin: 0 0 4px;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.service-item p {
+  margin: 0;
+  font-size: .85rem;
+  line-height: 1.6;
+  color: var(--grey);
+}
+
+.cta-block {
+  border: 1px solid var(--red-line);
+  padding: clamp(24px, 4vh, 40px);
+  text-align: center;
+  background: rgba(8, 8, 10, .85);
+  margin-top: clamp(28px, 5vh, 56px);
+}
+
+.cta__eyebrow {
+  margin: 0 0 10px;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.cta__title {
+  margin: 0 0 24px;
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.cta__title span { color: var(--red); }
+
+.cta-block .btn { margin: 0; }
+
 /* -------------------------- FAQ ------------------------------ */
 .faq {
   padding: clamp(28px, 5vh, 56px) 0;
